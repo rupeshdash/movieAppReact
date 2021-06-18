@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import { Route ,Switch , Link ,Redirect } from "react-router-dom";
 import List from './List';
+import New from "./New";
 import Pagination  from "./Pagination";
+import Navbar from "./Navbar";
 
 export default class moviepage extends Component {
   state = {
-    movies: [],
+    
     genres: [{id : 1, name:"All Genres"}],
     currSearchText: "",
     limit: 4,
@@ -85,20 +88,18 @@ filterGenre = (gName) =>{
 }
 async componentDidMount() {
     // console.log(2);
-    let resp = await fetch("https://react-backend101.herokuapp.com/movies");
-    let jsonMovies = await resp.json()
-    this.setState({
-        movies: jsonMovies.movies
-    });
+   
 
-    resp = await fetch("https://react-backend101.herokuapp.com/genres");
+   let resp = await fetch("https://react-backend101.herokuapp.com/genres");
     let jsonGenres = await resp.json();
     this.setState({
         genres : [...this.state.genres,...jsonGenres.genres]
     });
 }
+
 render() {
-    let { movies, currSearchText, limit,currentPage ,genres,currentGenre } = this.state; 
+    let { currSearchText, limit,currentPage ,genres,currentGenre } = this.state;
+    let {movies , deleteEntry} = this.props; 
     
     let filteredArr = movies;
     if (currentGenre != "All Genres") {
@@ -128,12 +129,17 @@ render() {
     
     
     return (
+
+       <>
+        
         <div className="row">
+
+          
             {/* 12 part */}
-            <div className="col-3">
+            <div className="col-3 body-container" >
             <List genres = {genres} filterGenre = {this.filterGenre}></List>
             </div>
-            <div className="col-9">
+            <div className="col-9 body-container">
                 <input type="search" value={currSearchText}
                     onChange={this.setCurrentText} />
 
@@ -165,7 +171,7 @@ render() {
                                 <td>{movieObj.dailyRentalRate}</td>
                                 <td><button type="button" className="btn btn-danger"
                                     onClick={() => {
-                                        this.deleteEntry(movieObj._id);
+                                       deleteEntry(movieObj._id);
                                     }}>Delete</button></td>
                             </tr>)
                         })}
@@ -182,6 +188,8 @@ render() {
                
             </div>
         </div>
+
+        </>
 
     )
 }

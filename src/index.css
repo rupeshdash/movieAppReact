@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.body-container{
+  margin-top: 2rem;
+}
+.display-6 {
+  color: white;
+  padding-left: 1rem;
+}
+.login-btn{
+  padding-right: 1rem;
+}
+.add-btn{
+  margin-right: 1rem;
+}
+.form-container{
+  height: 40%;
+  width: 70%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
+
+}
+.navbar-brand{
+  text-decoration: none;
+}
